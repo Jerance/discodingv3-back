@@ -1,5 +1,32 @@
 import { Users } from "@/db/models/User";
+import { User } from "@/types/auth.types";
 import { ObjectId } from "mongodb";
+
+export async function getAllFriends(userId: string, tabName: string): Promise<User[] | null> {
+    const currentUser = await Users.findOne({ _id: new ObjectId(userId) });
+
+    if (!currentUser) {
+        return null;
+    }
+
+    const friendIds = currentUser.friends
+        .filter((friend) => {
+            if (tabName === "All") {
+                return friend.status === "friend";
+            } else if (tabName === "Pending") {
+                return friend.status === "pending";
+            } else if (tabName === "Blocked") {
+                return friend.status === "blocked";
+            }
+            return false;
+        })
+        .map((friend) => friend.id);
+
+    const friends = await Users.find({ _id: { $in: friendIds } }, { projection: { username:1, avatarUrl:1, status:1 }}).toArray();
+
+    return friends;
+}
+
 
 export async function sendAddFriendRequest(userId: string, friendUsername: string): Promise<boolean> {
     const currentUser = await Users.findOne({ _id: new ObjectId(userId) });

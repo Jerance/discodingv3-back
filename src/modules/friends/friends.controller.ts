@@ -1,8 +1,20 @@
 import { Express, Request, Response } from "express";
 import { requireLogin } from "../auth/auth.middleware";
-import { sendAddFriendRequest, acceptFriendRequest, refuseFriendRequest, blockFriend } from "./friends.services";
+import { getAllFriends, sendAddFriendRequest, acceptFriendRequest, refuseFriendRequest, blockFriend } from "./friends.services";
 
 export function actionsFriendRoutes(app: Express) {
+
+    app.get('/all-friends', requireLogin, async (req: Request, res: Response) => {
+        const { userId, tabName } = req.body;
+        const friends = await getAllFriends(userId, tabName);
+
+        if (friends !== null) {
+            res.json({ success: true, friends });
+        } else {
+            res.status(400).json({ success: false, message: 'User not found' });
+        }
+    });
+
     app.post('/send-request-friend', requireLogin, async (req: Request, res: Response) => {
         const { userId, friendUsername } = req.body;
         const success = await sendAddFriendRequest(userId, friendUsername);
