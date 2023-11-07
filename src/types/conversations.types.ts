@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export interface Conversations {
-    user1: string
-    user2:string
+    user1: ObjectId
+    user2: ObjectId
     updatedAt:Date
 }

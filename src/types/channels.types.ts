@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export interface Channels {
-    senderId: string
-    name:string
-    type:string
+    senderId: ObjectId
+    name: string
+    type: string
 }

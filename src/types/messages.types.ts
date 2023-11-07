@@ -1,6 +1,8 @@
+import { ObjectId } from "mongodb";
+
 export interface Messages {
-    senderId: string
-    receiverId:string
+    senderId: ObjectId
+    receiverId: ObjectId
     content:string
     createdAt:Date
 }

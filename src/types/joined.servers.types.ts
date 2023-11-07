@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export interface JoinedServers {
-    userId: string
-    serverId:string
+    userId: ObjectId
+    serverId: ObjectId
     banStatus:string
 }
