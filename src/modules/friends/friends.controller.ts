@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 import { requireLogin } from "../auth/auth.middleware";
-import { sendAddFriendRequest, acceptFriendRequest, blockFriend } from "./friends.services";
+import { sendAddFriendRequest, acceptFriendRequest, refuseFriendRequest, blockFriend } from "./friends.services";
 
 export function actionsFriendRoutes(app: Express) {
     app.post('/send-request-friend', requireLogin, async (req: Request, res: Response) => {
@@ -22,6 +22,17 @@ export function actionsFriendRoutes(app: Express) {
             res.json({ success: true, message: 'Demande d\'ami acceptée avec succès' });
         } else {
             res.status(400).json({ success: false, message: 'Impossible d\'accepter la demande d\'ami' });
+        }
+    });
+
+    app.post('/refuse-friend-request', requireLogin, async (req: Request, res: Response) => {
+        const { userId, friendId } = req.body;
+        const success = await refuseFriendRequest(userId, friendId);
+
+        if (success) {
+            res.json({ success: true, message: 'Demande d\'ami refusée avec succès' });
+        } else {
+            res.status(400).json({ success: false, message: 'Impossible de refuser la demande d\'ami' });
         }
     });
 

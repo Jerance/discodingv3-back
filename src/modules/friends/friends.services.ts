@@ -68,6 +68,30 @@ export async function acceptFriendRequest(userId: ObjectId, friendId: ObjectId):
     return false;
 }
 
+export async function refuseFriendRequest(userId: ObjectId, friendId: ObjectId): Promise<boolean> {
+    const currentUser = await Users.findOne({ _id: new ObjectId(userId) });
+    const currentFriend = await Users.findOne({ _id: new ObjectId(friendId) });
+
+    if (!currentUser || !currentFriend) {
+        return false;
+    }
+
+    const currentUserFriendIndex = currentUser.friends.findIndex(f => f.id.equals(friendId) && f.status === "pending");
+    const currentFriendUserIndex = currentFriend.friends.findIndex(f => f.id.equals(userId) && f.status === "pending");
+
+    if (currentUserFriendIndex === -1 || currentFriendUserIndex === -1) {
+        return false;
+    }
+
+    currentUser.friends.splice(currentUserFriendIndex, 1);
+    currentFriend.friends.splice(currentFriendUserIndex, 1);
+
+    await Users.updateOne({ _id: new ObjectId(userId) }, { $set: { friends: currentUser.friends } });
+    await Users.updateOne({ _id: new ObjectId(friendId) }, { $set: { friends: currentFriend.friends } });
+
+    return true;
+}
+
 export async function blockFriend(userId: ObjectId, friendId: ObjectId): Promise<boolean> {
     const currentUser = await Users.findOne({ _id: userId });
 
