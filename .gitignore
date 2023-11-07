@@ -5,3 +5,5 @@ dist/
 
 # Env files
 .env
+
+.idea
