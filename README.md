@@ -2,6 +2,8 @@
 
 ## Setup
 
+Copier coller le fichier `.env.example` env `.env`
+
 Installer les dependances
 ```
 npm i
