@@ -93,21 +93,16 @@ export async function refuseFriendRequest(userId: ObjectId, friendId: ObjectId):
 }
 
 export async function blockFriend(userId: ObjectId, friendId: ObjectId): Promise<boolean> {
-    const currentUser = await Users.findOne({ _id: userId });
+    const currentUser = await Users.findOne({ _id: new ObjectId(userId) });
 
     if (!currentUser) {
         return false;
     }
 
-    const friendIndex = currentUser.friends.findIndex(f => f.id === friendId);
-
-    if (friendIndex === -1) {
-        return false;
-    }
+    const friendIndex = currentUser.friends.findIndex(f => f.id.equals(friendId));
 
     currentUser.friends[friendIndex].status = "blocked";
-
-    await Users.updateOne({ _id: userId }, { $set: { friends: currentUser.friends } });
+    await Users.updateOne({ _id: new ObjectId(userId) }, { $set: { friends: currentUser.friends } });
 
     return true;
 }
