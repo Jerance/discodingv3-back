@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "01de5068-d047-46ac-9721-ce546a44f5d1",
+		"name": "friends",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23789648",
+		"_collection_link": "https://dark-star-186270.postman.co/workspace/vuejs-typescript~efc4e62e-cac4-454e-b575-6790c7ecec6d/collection/23789648-01de5068-d047-46ac-9721-ce546a44f5d1?action=share&source=collection_link&creator=23789648"
+	},
+	"item": [
+		{
+			"name": "send-request-friend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\" : \"654a3aa56bf8f3b19a7906b8\",\n    \"friendUsername\" : \"Jerance93\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/send-request-friend",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"send-request-friend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accept-request-friend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\" : \"6549fe943246ea421ff126ec\",\n    \"friendId\" : \"654a3aa56bf8f3b19a7906b8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/accept-friend-request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"accept-friend-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refuse-friend-request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\" : \"6549fe943246ea421ff126ec\",\n    \"friendId\" : \"654a3aa56bf8f3b19a7906b8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/refuse-friend-request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"refuse-friend-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "block-friend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\" : \"6549fe943246ea421ff126ec\",\n    \"friendId\" : \"654a3aa56bf8f3b19a7906b8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/block-friend",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"block-friend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all-friends",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/all-friends?userId=6549fe943246ea421ff126ec&tabName=All",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"all-friends"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "6549fe943246ea421ff126ec"
+						},
+						{
+							"key": "tabName",
+							"value": "All"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

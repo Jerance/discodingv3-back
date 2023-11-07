@@ -5,9 +5,16 @@ import { getAllFriends, sendAddFriendRequest, acceptFriendRequest, refuseFriendR
 export function actionsFriendRoutes(app: Express) {
 
     app.get('/all-friends', requireLogin, async (req: Request, res: Response) => {
-        const { userId, tabName } = req.body;
+        const userId = req.query.userId as string;
+        const tabName = req.query.tabName as string;
+    
+        if (!userId || !tabName) {
+            res.status(400).json({ success: false, message: 'Missing parameters' });
+            return;
+        }
+    
         const friends = await getAllFriends(userId, tabName);
-
+    
         if (friends !== null) {
             res.json({ success: true, friends });
         } else {
