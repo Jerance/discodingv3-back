@@ -6,6 +6,7 @@ import { registerAuthRoutes } from './modules/auth/auth.controller'
 import { actionsFriendRoutes } from './modules/friends/friends.controller'
 import { isLogin } from './modules/auth/auth.middleware'
 import { initSocketio } from './websocket'
+import { registerServerRoutes } from "@/modules/servers/servers.controller";
 
 export function initWebServer() {
     // Creation du serveur http
@@ -34,6 +35,9 @@ export function initWebServer() {
 
     // On enregistre nos controllers
     registerAuthRoutes(app)
+
+    registerServerRoutes(app)
+  
     actionsFriendRoutes(app)
     
     // On ecoute sur le port configuré avec le .env
