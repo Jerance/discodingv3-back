@@ -8,7 +8,6 @@ export function registerServerRoutes(app: Express) {
     app.post('/server', isLogin, requireLogin, async (req, res)  => {
         const server = await createServer(req)
 
-        console.log("tth")
         if (server.success) {
             return res.send({
                 status: 200,
