@@ -19,6 +19,7 @@ export async function register(body: AuthRegisterBody) {
         birthdate: body.birthdate,
         email: body.email,
         status:"",
+        friends:[],
         token: token,
         createdAt: new Date()
     })

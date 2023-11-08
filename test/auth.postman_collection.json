@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "7942db63-9d5d-4f4c-964b-4d5f90e42f28",
+		"name": "auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23789648",
+		"_collection_link": "https://dark-star-186270.postman.co/workspace/vuejs-typescript~efc4e62e-cac4-454e-b575-6790c7ecec6d/collection/23789648-7942db63-9d5d-4f4c-964b-4d5f90e42f28?action=share&source=collection_link&creator=23789648"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"test\",\n    \"password\" : \"azerty\",\n    \"avatarUrl\" : \"https://www.melty.fr/wp-content/uploads/meltyfr/2023/03/capture-decran-53.png\",\n    \"email\" : \"test@gmail.com\",\n    \"birthdate\" : \"12/11/2003\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Jerance93\",\n    \"password\": \"azerty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth-me",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/auth/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
