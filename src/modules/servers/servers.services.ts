@@ -31,7 +31,7 @@ export async function findServerById(id: string) {
 }
 
 export async function joinServer(req: Request) {
-    const join = await UsersServers.updateOne({ server_id: new ObjectId(req.params.idServer) }, { $push: { users: new ObjectId(req.params.idUser) }})
+    const join = await UsersServers.updateOne({ server_id: new ObjectId(req.params.idServer) }, { $push: { users: new ObjectId(req.user?._id) }})
 
     const userUpdate = await Users.updateOne({ _id: new ObjectId(req.user?._id) }, { $push: { servers: new ObjectId(req.params.idServer) } })
 
