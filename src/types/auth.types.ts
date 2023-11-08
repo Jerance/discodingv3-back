@@ -1,3 +1,7 @@
+// auth.types.ts
+
+import { ObjectId } from "mongodb"
+
 export interface AuthRegisterBody {
     username: string
     password: string
@@ -14,6 +18,10 @@ export interface User {
     birthdate:Date
     token: string
     status:string
+    friends: {
+        id: ObjectId;
+        status: "pending" | "friend" | "blocked";
+    }[]
     createdAt: Date
 }
 
