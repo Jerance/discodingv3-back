@@ -32,7 +32,7 @@ export function registerServerRoutes(app: Express) {
         return res.status(500).send({ message: "error" })
     })
 
-    app.get('/server', async (req: Request<unknown, unknown, unknown, { id: string }>, res) => {
+    app.get('/server', requireLogin,async (req: Request<unknown, unknown, unknown, { id: string }>, res) => {
 
         if (!req.query.id){
             return res.status(400).send({
