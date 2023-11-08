@@ -14,7 +14,7 @@ export function registerAuthRoutes(app: Express) {
         
         // on set un cookie si on a un token dans le result
         if (result.token) {
-            res.cookie('token', result.token, { expires: new Date(+new Date() + 1000000000), sameSite: 'none' })
+            res.cookie('token', result.token, { expires: new Date(+new Date() + 1000000000), sameSite: 'none', secure: true })
         }
         // on reponds a la requete http avec le result
         res.json(result)
@@ -24,7 +24,7 @@ export function registerAuthRoutes(app: Express) {
         const result = await login(req.body)
         // on set un cookie si on a un token dans le result
         if (result.token) {
-            res.cookie('token', result.token, { expires: new Date(+new Date() + 1000000000), sameSite: 'none' })
+            res.cookie('token', result.token, { expires: new Date(+new Date() + 1000000000), sameSite: 'none', secure: true })
         }
         res.json(result)
     })
