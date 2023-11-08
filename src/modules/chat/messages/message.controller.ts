@@ -1,9 +1,27 @@
 import { Messages } from "@/types/messages.types";
 import { Express, Request, Response } from "express";
-import { sendMessage, editMessage, deleteMessage } from "./message.services";
+import { getAllMessagesInConversation, sendMessage, editMessage, deleteMessage } from "./message.services";
 import { ObjectId } from "mongodb";
 
 export function messageRoutes(app: Express) {
+
+    app.get('/messages/:conversationId', async (req, res) => {
+        try {
+            const conversationId = req.params.conversationId;
+
+            if (!conversationId) {
+                res.status(400).json({ success: false, message: "Conversation ID is missing" });
+                return;
+            }
+
+            const messages = await getAllMessagesInConversation(conversationId);
+
+            res.json({ success: true, messages });
+        } catch (error) {
+            console.error("Error fetching messages:", error);
+            res.status(500).json({ success: false, message: "Internal server error" });
+        }
+    });
 
     app.post('/message', async (req: Request<unknown, unknown, Messages>, res: Response) => {
         try {
