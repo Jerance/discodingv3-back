@@ -19,7 +19,7 @@ export function registerServerRoutes(app: Express) {
         }
     })
 
-    app.post('/server/join', isLogin, requireLogin , async (req, res) => {
+    app.post('/server/:idServer/join', isLogin, requireLogin , async (req, res) => {
         const join = await joinServer(req)
 
         if(join.success) {
