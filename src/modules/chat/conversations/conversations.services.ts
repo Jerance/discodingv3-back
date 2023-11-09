@@ -26,7 +26,7 @@ export async function createConversation(userIds: [ObjectId]): Promise<ObjectId 
 export async function getExistingConversation(conversationId: ObjectId): Promise<ObjectId | null> {
     try {
         const conversation = await Conversation.findOne({
-            _id: { $all: [conversationId] },
+            _id: new ObjectId(conversationId),
         });
 
         if (conversation) {
