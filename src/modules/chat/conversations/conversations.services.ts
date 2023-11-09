@@ -23,10 +23,10 @@ export async function createConversation(userIds: [ObjectId]): Promise<ObjectId 
     }
 }
 
-export async function getExistingConversation(user1Id: ObjectId): Promise<ObjectId | null> {
+export async function getExistingConversation(conversationId: ObjectId): Promise<ObjectId | null> {
     try {
         const conversation = await Conversation.findOne({
-            users: { $all: [user1Id] },
+            _id: { $all: [conversationId] },
         });
 
         if (conversation) {

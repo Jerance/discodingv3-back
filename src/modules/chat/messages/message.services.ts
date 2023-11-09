@@ -18,7 +18,7 @@ export async function sendMessage(newMessage: Messages): Promise<boolean> {
         newMessage.senderId = new ObjectId(newMessage.senderId);
         newMessage.createdAt = new Date();
 
-        const existingConversation = await getExistingConversation(newMessage.senderId);
+        const existingConversation = await getExistingConversation(newMessage.idSrc);
 
         if (!existingConversation) {
             const newConversation = await createConversation([newMessage.senderId]);
