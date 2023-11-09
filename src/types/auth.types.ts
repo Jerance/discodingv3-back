@@ -5,19 +5,19 @@ import { ObjectId } from "mongodb"
 export interface AuthRegisterBody {
     username: string
     password: string
-    avatarUrl:string
-    email:string
-    birthdate:Date
+    avatarUrl: string
+    email: string
+    birthdate: Date
 }
 
 export interface User {
     username: string
-    avatarUrl:string
+    avatarUrl: string
     password: string
-    email:string
-    birthdate:Date
+    email: string
+    birthdate: Date
     token: string
-    status:string
+    status: string
     friends: {
         id: ObjectId;
         status: "pending" | "friend" | "blocked";
