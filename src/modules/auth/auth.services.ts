@@ -2,6 +2,7 @@ import { AuthRegisterBody, SimpleUser } from "@/types/auth.types";
 import { Users } from "@/db/models/User";
 import crypto from 'crypto'
 import { ObjectId, WithId } from 'mongodb';
+import { Request, Response } from "express";
 
 export async function getUserById(userId: string) {
     return Users.findOne<WithId<SimpleUser>>({ _id: new ObjectId(userId) }, { projection: { password: 0, token: 0 } });
@@ -51,4 +52,15 @@ export async function login(body: AuthRegisterBody) {
 
 export function findByToken(token: string) {
     return Users.findOne<WithId<SimpleUser>>({ token }, { projection: { password: 0, token: 0 } })
+}
+
+export async function logout(req: Request, res: Response) {
+    try {
+        console.log('Request object:', req);
+        res.clearCookie('token');
+        res.json({ success: true, message: 'Logout successful' });
+    } catch (error) {
+        console.error('Error during logout:', error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
 }

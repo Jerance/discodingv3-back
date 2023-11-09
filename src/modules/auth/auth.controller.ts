@@ -1,6 +1,6 @@
 import { AuthRegisterBody } from "@/types/auth.types";
 import { Express, Request, Response } from "express";
-import { getUserById, login, register } from "./auth.services";
+import { getUserById, login, register, logout } from "./auth.services";
 import { requireLogin } from "./auth.middleware";
 
 export function registerAuthRoutes(app: Express) {
@@ -49,4 +49,8 @@ export function registerAuthRoutes(app: Express) {
     app.get('/auth/me', requireLogin, (req, res) => {
         res.json(req.user)
     })
+
+    app.post('/auth/logout', (req, res) => {
+        logout(req, res);
+    });
 }
