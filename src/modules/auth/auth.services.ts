@@ -21,7 +21,8 @@ export async function register(body: AuthRegisterBody) {
         status:"",
         friends:[],
         token: token,
-        createdAt: new Date()
+        createdAt: new Date(),
+        servers: []
     })
     
     return { success: true, token }

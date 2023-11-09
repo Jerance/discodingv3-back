@@ -23,6 +23,11 @@ export interface User {
         status: "pending" | "friend" | "blocked";
     }[]
     createdAt: Date
+    servers: {
+        idServer: ObjectId;
+        roles: Array<string>,
+        banStatus: true | false
+    }[]
 }
 
 export interface SimpleUser {
