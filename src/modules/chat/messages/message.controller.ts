@@ -32,7 +32,7 @@ export function messageRoutes(app: Express) {
             const result = await sendMessage(newMessage);
 
             if (result) {
-                res.json({ success: true, message: "Message sent successfully" });
+                res.json({ success: true, message: "Message sent successfully", createdMessage: newMessage });
             } else {
                 res.status(400).json({ success: false, message: "Failed to send the message" });
             }
@@ -52,7 +52,7 @@ export function messageRoutes(app: Express) {
             const result = await editMessage(messageId, updatedMessage);
 
             if (result) {
-                res.json({ success: true, message: "Message edited successfully" });
+                res.json({ success: true, message: "Message edited successfully", editedMessage: updatedMessage });
             } else {
                 res.status(400).json({ success: false, message: "Failed to edit the message" });
             }

@@ -1,11 +1,11 @@
 import { Message } from '@/db/models/Messages';
 import { ObjectId } from "mongodb";
 import { Messages } from "@/types/messages.types";
-import { createConversation, getExistingConversation } from '../conversations/conversations.services'; // Import the createConversation function
+import { createConversation, getExistingConversation } from '../conversations/conversations.services';
 
 export async function getAllMessagesInConversation(conversationId: string): Promise<Messages[] | null> {
     try {
-        const messages = await Message.find({ idSrc: new ObjectId(conversationId) }).toArray();
+        const messages = await Message.find({ idSrc: new ObjectId(conversationId), content: { $exists: true } }).toArray();
         return messages;
     } catch (error) {
         console.error("Error fetching messages in conversation:", error);
