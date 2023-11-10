@@ -1,11 +1,11 @@
 import { Express, Request } from "express";
 // import { requireLogin } from "../auth/auth.middleware";
 import { createServer, deleteServer, findServerById, joinServer, quitServer } from "@/modules/servers/servers.services";
-import { isLogin, requireLogin } from "@/modules/auth/auth.middleware";
+import { requireLogin } from "@/modules/auth/auth.middleware";
 
 export function registerServerRoutes(app: Express) {
 
-    app.post('/server', isLogin, requireLogin, async (req, res)  => {
+    app.post('/server', requireLogin, async (req, res)  => {
         const server = await createServer(req)
 
         if (server.success) {
@@ -19,9 +19,10 @@ export function registerServerRoutes(app: Express) {
         }
     })
 
-    app.post('/server/:idServer/join', isLogin, requireLogin , async (req, res) => {
+    app.post('/server/:idServer/join', requireLogin , async (req, res) => {
         const join = await joinServer(req)
 
+        console.log(req.params)
         if(join.success) {
             return res.send({
                 status: 200,
@@ -52,7 +53,7 @@ export function registerServerRoutes(app: Express) {
         return res.status(500).send({ message: "error" })
     })
 
-    app.delete('/server/:idServer/quit', isLogin, requireLogin, async (req, res) => {
+    app.delete('/server/:idServer/quit', requireLogin, async (req, res) => {
         const quit = await quitServer(req)
 
         if(quit.success) {
@@ -65,7 +66,7 @@ export function registerServerRoutes(app: Express) {
         return res.status(500).send({ message: "error" })
     })
 
-    app.delete('/server/:idServer', isLogin, requireLogin, async (req, res) => {
+    app.delete('/server/:idServer', requireLogin, async (req, res) => {
         const deleted = await deleteServer(req)
 
         if(deleted.success){
