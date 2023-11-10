@@ -9,6 +9,7 @@ import { registerAuthRoutes } from './modules/auth/auth.controller'
 import { actionsFriendRoutes } from './modules/friends/friends.controller'
 import { registerServerRoutes } from "@/modules/servers/servers.controller";
 import { messageRoutes } from './modules/chat/messages/message.controller'
+import { registerChannelRoutes } from "@/modules/channels/channels.controller";
 
 export function initWebServer() {
     // Creation du serveur http
@@ -43,6 +44,8 @@ export function initWebServer() {
     actionsFriendRoutes(app)
 
     messageRoutes(app)
+
+    registerChannelRoutes(app)
 
     // On ecoute sur le port configuré avec le .env
     server.listen(process.env.NODE_PORT, () => {

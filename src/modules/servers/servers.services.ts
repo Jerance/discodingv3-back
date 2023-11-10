@@ -71,3 +71,20 @@ export async function deleteServer(req: Request){
 
     return { success: false }
 }
+
+export async function getMyServer(req: Request){
+    const user = await Users.findOne({ _id: req.user?._id })
+
+    console.log(user?.servers)
+    const servsId: ObjectId[] = user?.servers.map(serv => {
+         return new ObjectId(serv.idServer)
+    }) || []
+    console.log(servsId)
+    const servers = await Servers.find({ _id: { $in: servsId } }).toArray()
+
+    if(servers){
+        return { success: true, servers }
+    }
+
+    return { success: false }
+}

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export interface Channels {
-    senderId: ObjectId
+    id_server: ObjectId
     name: string
     type: string
 }
