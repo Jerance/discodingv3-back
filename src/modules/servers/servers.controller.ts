@@ -1,6 +1,13 @@
 import { Express, Request } from "express";
 // import { requireLogin } from "../auth/auth.middleware";
-import { createServer, deleteServer, findServerById, joinServer, quitServer } from "@/modules/servers/servers.services";
+import {
+    createServer,
+    deleteServer,
+    findServerById,
+    getMyServer,
+    joinServer,
+    quitServer
+} from "@/modules/servers/servers.services";
 import { requireLogin } from "@/modules/auth/auth.middleware";
 
 export function registerServerRoutes(app: Express) {
@@ -72,6 +79,21 @@ export function registerServerRoutes(app: Express) {
         if(deleted.success){
             return res.status(200).send({
                 status: 200
+            })
+        }
+
+        return res.status(500).send({ message: "error" })
+
+    })
+
+    app.get('/servers/me', requireLogin, async (req, res) => {
+        const servs = await getMyServer(req)
+
+        console.log(servs)
+        if(servs.success){
+            return res.status(200).send({
+                status: 200,
+                servers: servs.servers
             })
         }
 
