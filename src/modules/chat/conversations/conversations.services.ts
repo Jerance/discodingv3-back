@@ -1,9 +1,8 @@
 // conversations.services.ts
-
 import { Conversation } from '@/db/models/Conversations';
 import { ObjectId } from "mongodb";
 
-export async function createConversation(userIds: [ObjectId]): Promise<ObjectId | null> {
+export async function createConversation(userIds: ObjectId[]): Promise<ObjectId | null> {
     try {
         const conversation = {
             users: userIds,
@@ -23,19 +22,18 @@ export async function createConversation(userIds: [ObjectId]): Promise<ObjectId 
     }
 }
 
-export async function getExistingConversation(conversationId: ObjectId): Promise<ObjectId | null> {
+export async function getConversation(userIds: ObjectId[]) {
     try {
-        const conversation = await Conversation.findOne({
-            _id: new ObjectId(conversationId),
-        });
+        const result = await Conversation.findOne({ users: { $all: userIds } });
 
-        if (conversation) {
-            return conversation._id;
+        console.log(result)
+
+        if (result) {
+            return result
         }
-
         return null;
     } catch (error) {
-        console.error("Error checking for existing conversation:", error);
+        console.error("Error creating conversation:", error);
         return null;
     }
 }

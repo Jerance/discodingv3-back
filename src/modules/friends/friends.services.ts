@@ -2,6 +2,8 @@ import { Users } from "@/db/models/User";
 import { User } from "@/types/auth.types";
 import { ObjectId } from "mongodb";
 
+import { createConversation } from "../chat/conversations/conversations.services";
+
 export async function getAllFriends(userId: string, tabName: string): Promise<User[] | null> {
     const currentUser = await Users.findOne({ _id: new ObjectId(userId) });
 
@@ -22,7 +24,7 @@ export async function getAllFriends(userId: string, tabName: string): Promise<Us
         })
         .map((friend) => friend.id);
 
-    const friends = await Users.find({ _id: { $in: friendIds } }, { projection: { username:1, avatarUrl:1, status:1 }}).toArray();
+    const friends = await Users.find({ _id: { $in: friendIds } }, { projection: { username: 1, avatarUrl: 1, status: 1 } }).toArray();
 
     return friends;
 }
@@ -40,7 +42,7 @@ export async function sendAddFriendRequest(userId: string, friendUsername: strin
     if (!friend) {
         return false;
     }
-    
+
 
     const existingFriend = currentUser?.friends?.find(f => f.id.toString() === friend._id.toString());
 
@@ -86,9 +88,12 @@ export async function acceptFriendRequest(userId: ObjectId, friendId: ObjectId):
             id: new ObjectId(userId),
             status: "friend"
         });
+        const userIds = [new ObjectId(userId), new ObjectId(friendId)]
+
+        createConversation(userIds)
 
         await Users.updateOne({ _id: new ObjectId(friendId) }, { $set: { friends: currentFriend.friends } });
-        
+
         return true;
     }
 

@@ -1,7 +1,6 @@
 import { Message } from '@/db/models/Messages';
 import { ObjectId } from "mongodb";
 import { Messages } from "@/types/messages.types";
-import { createConversation, getExistingConversation } from '../conversations/conversations.services';
 
 export async function getAllMessagesInConversation(conversationId: string): Promise<Messages[] | null> {
     try {
@@ -16,21 +15,8 @@ export async function getAllMessagesInConversation(conversationId: string): Prom
 export async function sendMessage(newMessage: Messages): Promise<boolean> {
     try {
         newMessage.senderId = new ObjectId(newMessage.senderId);
+        newMessage.idSrc = new ObjectId(newMessage.idSrc);
         newMessage.createdAt = new Date();
-
-        const existingConversation = await getExistingConversation(newMessage.idSrc);
-
-        if (!existingConversation) {
-            const newConversation = await createConversation([newMessage.senderId]);
-            if (newConversation) {
-                newMessage.idSrc = newConversation;
-            } else {
-                console.error("Error creating conversation");
-                return false;
-            }
-        } else {
-            newMessage.idSrc = existingConversation;
-        }
 
         await Message.insertOne(newMessage);
         return true;
