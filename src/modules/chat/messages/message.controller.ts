@@ -1,9 +1,25 @@
 import { Messages } from "@/types/messages.types";
 import { Express, Request, Response } from "express";
 import { getAllMessagesInConversation, sendMessage, editMessage, deleteMessage } from "./message.services";
+import { getConversation } from "../conversations/conversations.services";
 import { ObjectId } from "mongodb";
 
 export function messageRoutes(app: Express) {
+
+    app.get('/conv', async (req: Request<unknown, unknown, unknown, { user: string }>, res: Response) => {
+        try {
+            if (req.user) {
+                const conv = await getConversation([
+                    new ObjectId(req.user._id),
+                    new ObjectId(req.query.user),
+                ])
+                res.status(200).send(conv)
+            }
+        } catch (error) {
+            console.error("Error sending message:", error);
+            res.status(500).json({ success: false, message: "Internal server error" });
+        }
+    });
 
     app.get('/messages/:conversationId', async (req, res) => {
         try {
