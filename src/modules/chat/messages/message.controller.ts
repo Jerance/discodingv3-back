@@ -39,24 +39,6 @@ export function messageRoutes(app: Express) {
         }
     });
 
-    // app.get("/messages/:idSrc/channel", async (req, res) => {
-    //     try {
-    //         const idSrc = req.params.idSrc;
-    //
-    //         if (!idSrc) {
-    //             res.status(400).json({ success: false, message: "Source ID is missing" });
-    //             return;
-    //         }
-    //
-    //         const messages = await getAllMessagesInConversation(conversationId);
-    //
-    //         res.json({ success: true, messages });
-    //     } catch (error) {
-    //         console.error("Error fetching messages:", error);
-    //         res.status(500).json({ success: false, message: "Internal server error" });
-    //     }
-    // })
-
     app.post('/message', async (req: Request<unknown, unknown, Messages>, res: Response) => {
         try {
             const newMessage: Messages = req.body;

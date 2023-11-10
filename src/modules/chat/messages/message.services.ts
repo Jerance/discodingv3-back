@@ -12,16 +12,6 @@ export async function getAllMessagesInConversation(conversationId: string): Prom
     }
 }
 
-// export async function getAllMessageBySrcId(srcId): Promise<Messages[] | null> {
-//     try {
-//         const messages = await Message.find({ idSrc: new ObjectId(conversationId) }).toArray();
-//         return messages;
-//     } catch (error) {
-//         console.error("Error fetching messages in conversation:", error);
-//         return null;
-//     }
-// }
-
 export async function sendMessage(newMessage: Messages): Promise<boolean> {
     try {
         newMessage.senderId = new ObjectId(newMessage.senderId);
